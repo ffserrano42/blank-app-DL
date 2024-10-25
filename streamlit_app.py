@@ -44,7 +44,7 @@ if uploaded_image:
                     score = round(float(detection[4]), 2)
                     cls = int(detection[5])
                     object_name =  model.names[cls]
-                    label = f'{object_name} {score}'
+                    label = f'Clase detectada{object_name} probabilidad {score}'
                     st.text(label)
 
 
