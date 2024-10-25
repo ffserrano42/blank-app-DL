@@ -37,14 +37,14 @@ if uploaded_image:
         
         # Procesar la imagen con el modelo YOLO
         result = model(image)  # Usar predict para evaluar la imagen
-        st.text(result[0].boxes.data)
+        #st.text(result[0].boxes.data)
         for detection in result[0].boxes.data:
                     x0, y0 = (int(detection[0]), int(detection[1]))
                     x1, y1 = (int(detection[2]), int(detection[3]))
                     score = round(float(detection[4]), 2)
                     cls = int(detection[5])
                     object_name =  model.names[cls]
-                    label = f'Clase detectada{object_name} probabilidad {score}'
-                    st.text(label)
+                    label = f'Clase detectada {object_name} probabilidad {score}'
+                    st.text(f'{label} x0,y0 {x0},{y0} x1,y1 {x1},{y1}')
 
 
