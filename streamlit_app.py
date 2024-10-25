@@ -28,7 +28,7 @@ if uploaded_image:
         progress_bar = st.progress(0)
         st.text("procesando")
         object_names = list(model.names.values())
-        st.text(object_names)
+        #st.text(object_names)
         
         # Simulación de proceso con la barra de progreso
         for percent_complete in range(100):
@@ -37,14 +37,21 @@ if uploaded_image:
         
         # Procesar la imagen con el modelo YOLO
         result = model(image)  # Usar predict para evaluar la imagen
-        #st.text(result[0].boxes.data)
+        class_counts = {}
         for detection in result[0].boxes.data:
                     x0, y0 = (int(detection[0]), int(detection[1]))
                     x1, y1 = (int(detection[2]), int(detection[3]))
                     score = round(float(detection[4]), 2)
                     cls = int(detection[5])
                     object_name =  model.names[cls]
-                    label = f'Clase detectada {object_name} probabilidad {score}'
-                    st.text(f'{label} x0,y0 {x0},{y0} x1,y1 {x1},{y1}')
+                    label = f'Clase detectada :  {object_name} ,  probabilidad:  {score}'
+                    st.text(f'{label}, ubicaciones x0,y0: {x0}-{y0} ubicaciones x1,y1 : {x1}-{y1}')
+                    if object_name in class_counts:
+                        class_counts[object_name] += 1
+                    else:
+                        class_counts[object_name] = 1
+        st.subheader('Conteo de clases detectadas')
+        class_count_df = pd.DataFrame(class_counts.items(), columns=['Clase', 'Ocurrencias'])
+        st.table(class_count_df)
 
 
