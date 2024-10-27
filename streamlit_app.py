@@ -55,7 +55,7 @@ if uploaded_image:
                             class_counts[object_name] += 1
                         else:
                             class_counts[object_name] = 1
-                        cv2.rectangle(original_image, (x0, y0), (x1, y1), (0, 255, 0), 2)                    
+                        cv2.rectangle(original_image, (x0, y0), (x1, y1), (0, 255, 0), 4)                    
                         # Añade la etiqueta y la probabilidad a la caja
                         label = f'{object_name}: {score}'
                         cv2.putText(original_image, label, (x0, y0 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)                                          
