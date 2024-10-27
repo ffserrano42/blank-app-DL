@@ -12,7 +12,8 @@ import numpy as np
 model = YOLO("yolov8n.pt") 
 
 # Título de la aplicación
-st.title("Aplicación de reconocimiento de imágenes con YOLO")
+st.title("Aplicación de reconocimiento de imágenes con YOLO V 1.0 ")
+st.text("Cargue una imagen y presione el botón de 'Procesar' para detectar objetos en la imagen. Solo se mostraran aquellos cuya probabilidad sea mayor a 0.65")
 
 # Carga de la imagen
 uploaded_image = st.file_uploader("Cargar imagen", type=["jpg", "png", "jpeg"])
