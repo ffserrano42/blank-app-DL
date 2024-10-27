@@ -6,6 +6,7 @@ import pandas as pd
 from io import BytesIO
 import ultralytics 
 from ultralytics import YOLO
+import numpy as np
 
 # Cargar modelo YOLO
 model = YOLO("yolov8n.pt") 
@@ -36,21 +37,31 @@ if uploaded_image:
             progress_bar.progress(percent_complete + 1)
         
         # Procesar la imagen con el modelo YOLO
-        result = model(image)  # Usar predict para evaluar la imagen
+        original_image=np.array(image)
+        result = model(image)  # Usar predict para evaluar la imagen    
+        result_predict=model.predict(image)
         class_counts = {}
         for detection in result[0].boxes.data:
                     x0, y0 = (int(detection[0]), int(detection[1]))
                     x1, y1 = (int(detection[2]), int(detection[3]))
                     score = round(float(detection[4]), 2)
                     cls = int(detection[5])
-                    object_name =  model.names[cls]
-                    label = f'Clase detectada :  {object_name} ,  probabilidad:  {score}'
-                    st.text(f'{label}, ubicaciones x0,y0: {x0}-{y0} ubicaciones x1,y1 : {x1}-{y1}')
-                    if object_name in class_counts:
-                        class_counts[object_name] += 1
-                    else:
-                        class_counts[object_name] = 1
+                    object_name =  model.names[cls]                    
+                    # Dibuja la caja en la imagen y tambien la probabilidad
+                    if(score>0.65):
+                        # Contar las ocurrencias de cada clase para mostrarlas al final
+                        if object_name in class_counts:
+                            class_counts[object_name] += 1
+                        else:
+                            class_counts[object_name] = 1
+                        cv2.rectangle(original_image, (x0, y0), (x1, y1), (0, 255, 0), 2)                    
+                        # Añade la etiqueta y la probabilidad a la caja
+                        label = f'{object_name}: {score}'
+                        cv2.putText(original_image, label, (x0, y0 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)                                          
+                    
+        st.image(original_image, caption="Imagen con detecciones", use_column_width=True)
         st.subheader('Conteo de clases detectadas')
+
         class_count_df = pd.DataFrame(class_counts.items(), columns=['Clase', 'Ocurrencias'])
         st.table(class_count_df)
 
