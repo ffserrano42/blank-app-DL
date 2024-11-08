@@ -29,7 +29,7 @@ if uploaded_image:
     #st.image(image, caption="Imagen cargada", use_column_width=True)
     col1,col2=st.columns(2)
     with col1:
-        st.image(image, caption="Imagen cargada", use_column_width=True)
+        st.image(image, caption="Imagen cargada", use_container_width=True)
     # Botón de "Procesar"
     if st.button("Procesar"):
         # Barra de progreso
@@ -66,7 +66,7 @@ if uploaded_image:
                         cv2.putText(original_image_v11, label, (x0, y0 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0,0), 1)                                         
         print(class_counts_v11)
         with col2:
-            st.image(original_image_v11, caption="Imagen con detecciones Yolo V11 entrenado", use_column_width=True)      
+            st.image(original_image_v11, caption="Imagen con detecciones Yolo V11 entrenado", use_container_width=True)      
         class_count_df_11 = pd.DataFrame(class_counts_v11.items(), columns=['Clase', 'Ocurrencias'])
         st.table(class_count_df_11)
 
