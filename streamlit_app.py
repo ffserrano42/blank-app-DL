@@ -13,6 +13,7 @@ model = YOLO("yolov8n.pt")
 model_proyecto_aug=YOLO("best_proyecto_v11_5.pt") # este es el modelo entrenado con datos aumentados
 model_proyecto=YOLO("best_proyecto_v11.pt")  #este es el modelo entrenado sin datos aumentados.
 
+
 # Título de la aplicación
 st.title("Aplicación de reconocimiento de imágenes de plantas de papa con YOLO ")
 st.text("seleccione una imagen y presione el botón de 'Procesar' para detectar las plantas de papa ")
@@ -45,8 +46,8 @@ if uploaded_image:
         # Procesar la imagen con el modelo YOLO
         original_image_v11=np.array(image)
         original_image_v11_aug=np.array(image)
-        result_v11=model_proyecto(image)    
-        result_v11_aug=model_proyecto_aug(image)           
+        result_v11=model_proyecto.predict(image,max_det=1500)         
+        result_v11_aug=model_proyecto_aug.predict(image,max_det=1500)           
         st.subheader('Conteo de clases detectadas con deteccion v11')        
         class_counts_v11 = {}
         for detection in result_v11[0].boxes.data:
