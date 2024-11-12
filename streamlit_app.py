@@ -10,7 +10,7 @@ import numpy as np
 
 # Cargar modelo YOLO
 model = YOLO("yolov8n.pt")
-model_proyecto_aug=YOLO("best_proyecto_v11_5.pt") # este es el modelo entrenado con datos aumentados
+model_proyecto_aug=YOLO("best_proyecto_v11_6.pt") # este es el modelo entrenado con datos aumentados
 model_proyecto=YOLO("best_proyecto_v11.pt")  #este es el modelo entrenado sin datos aumentados.
 
 
