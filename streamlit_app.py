@@ -10,7 +10,8 @@ import numpy as np
 
 # Cargar modelo YOLO
 model_proyecto=YOLO("best_model_sa_1.pt")  #este es el modelo entrenado sin datos aumentados.
-model_proyecto_aug=YOLO("best_proyecto_v11_6.pt") # este es el modelo entrenado con datos aumentados
+#model_proyecto_aug=YOLO("best_proyecto_v11_6.pt") # este es el modelo entrenado con datos aumentados
+model_proyecto_aug=YOLO("best_proyecto_conaumentacion.pt") # este es el modelo entrenado con datos aumentados
 
 #rango de detecciones por score para que en cada modelo se pueda mostrar las detecciones por score
 detections_by_score_range = {
