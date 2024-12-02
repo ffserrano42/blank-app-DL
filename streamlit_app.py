@@ -15,30 +15,30 @@ model_proyecto_aug=YOLO("best_proyecto_conaumentacion.pt") # este es el modelo e
 
 #rango de detecciones por score para que en cada modelo se pueda mostrar las detecciones por score
 detections_by_score_range = {
-    "0-0.1": 0,
-    "0.1-0.2": 0,
-    "0.2-0.3": 0,
-    "0.3-0.4": 0,
-    "0.4-0.5": 0,
-    "0.5-0.6": 0,
-    "0.6-0.7": 0,
-    "0.7-0.8": 0,
-    "0.8-0.9": 0,
-    "0.9-1": 0
+     f"0%-10%": 0,
+    f"10%-20%": 0,
+    f"20%-30%": 0,
+    f"30%-40%": 0,
+    f"40%-50%": 0,
+    f"50%-60%": 0,
+    f"60%-70%": 0,
+    f"70%-80%": 0,
+    f"80%-90%": 0,
+    f"90%-100%": 0
 }
 
 #rango de deteccion para el modelo con aumentacion
 detections_by_score_range_aug = {
-    "0-0.1": 0,
-    "0.1-0.2": 0,
-    "0.2-0.3": 0,
-    "0.3-0.4": 0,
-    "0.4-0.5": 0,
-    "0.5-0.6": 0,
-    "0.6-0.7": 0,
-    "0.7-0.8": 0,
-    "0.8-0.9": 0,
-    "0.9-1": 0
+    f"0%-10%": 0,
+    f"10%-20%": 0,
+    f"20%-30%": 0,
+    f"30%-40%": 0,
+    f"40%-50%": 0,
+    f"50%-60%": 0,
+    f"60%-70%": 0,
+    f"70%-80%": 0,
+    f"80%-90%": 0,
+    f"90%-100%": 0
 }
 
 # Título de la aplicación
@@ -85,25 +85,25 @@ if uploaded_image:
                     object_name =  model_proyecto.names[cls]                                                        
                     # Agrupa las detecciones por rango de score
                     if score < 0.1:
-                        detections_by_score_range["0-0.1"] += 1
+                        detections_by_score_range[f"0%-10%"] += 1
                     elif score < 0.2:
-                        detections_by_score_range["0.1-0.2"] += 1
+                        detections_by_score_range[f"10%-20%"] += 1
                     elif score < 0.3:
-                        detections_by_score_range["0.2-0.3"] += 1
+                        detections_by_score_range[f"20%-30%"] += 1
                     elif score < 0.4:
-                        detections_by_score_range["0.3-0.4"] += 1
+                        detections_by_score_range[f"30%-40%"] += 1
                     elif score < 0.5:
-                        detections_by_score_range["0.4-0.5"] += 1
+                        detections_by_score_range[f"40%-50%"] += 1
                     elif score < 0.6:
-                        detections_by_score_range["0.5-0.6"] += 1
+                        detections_by_score_range[f"50%-60%"] += 1
                     elif score < 0.7:
-                        detections_by_score_range["0.6-0.7"] += 1
+                        detections_by_score_range[f"60%-70%"] += 1
                     elif score < 0.8:
-                        detections_by_score_range["0.7-0.8"] += 1
+                        detections_by_score_range[f"70%-80%"] += 1
                     elif score < 0.9:
-                        detections_by_score_range["0.8-0.9"] += 1
+                        detections_by_score_range[f"80%-90%"] += 1
                     else:
-                        detections_by_score_range["0.9-1"] += 1
+                        detections_by_score_range[f"90%-100%"] += 1
                     # Dibuja la caja en la imagen y tambien la probabilidad
                     if(score>=score_threshold):                        
                         # Contar las ocurrencias de cada clase para mostrarlas al final
@@ -135,25 +135,25 @@ if uploaded_image:
                     object_name =  model_proyecto_aug.names[cls]
                      # Agrupa las detecciones por rango de score
                     if score < 0.1:
-                        detections_by_score_range_aug["0-0.1"] += 1
+                        detections_by_score_range_aug[f"0%-10%"] += 1
                     elif score < 0.2:
-                        detections_by_score_range_aug["0.1-0.2"] += 1
+                        detections_by_score_range_aug[f"10%-20%"] += 1
                     elif score < 0.3:
-                        detections_by_score_range_aug["0.2-0.3"] += 1
+                        detections_by_score_range_aug[f"20%-30%"] += 1
                     elif score < 0.4:
-                        detections_by_score_range_aug["0.3-0.4"] += 1
+                        detections_by_score_range_aug[f"30%-40%"] += 1
                     elif score < 0.5:
-                        detections_by_score_range_aug["0.4-0.5"] += 1
+                        detections_by_score_range_aug[f"40%-50%"] += 1
                     elif score < 0.6:
-                        detections_by_score_range_aug["0.5-0.6"] += 1
+                        detections_by_score_range_aug[f"50%-60%"] += 1
                     elif score < 0.7:
-                        detections_by_score_range_aug["0.6-0.7"] += 1
+                        detections_by_score_range_aug[f"60%-70%"] += 1
                     elif score < 0.8:
-                        detections_by_score_range_aug["0.7-0.8"] += 1
+                        detections_by_score_range_aug[f"70%-80%"] += 1
                     elif score < 0.9:
-                        detections_by_score_range_aug["0.8-0.9"] += 1
+                        detections_by_score_range_aug[f"80%-90%"] += 1
                     else:
-                        detections_by_score_range_aug["0.9-1"] += 1                    
+                        detections_by_score_range_aug[f"90%-100%"] += 1                    
                     # Dibuja la caja en la imagen y tambien la probabilidad
                     if(score>=score_threshold):
                         # Contar las ocurrencias de cada clase para mostrarlas al final
