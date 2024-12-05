@@ -9,9 +9,6 @@ from ultralytics import YOLO
 import numpy as np
 
 
-# Cargar modelo YOLO
-#model_proyecto=YOLO("best_model_sa_1.pt")  #este es el modelo entrenado sin datos aumentados. se debe comentarear ya que streamlit cloud esta teniendo inconvenientes con la carga de modelos asi que solo se puede cargar un modelo :'(
-#model_proyecto_aug=YOLO("best_proyecto_v11_6.pt") # este es el modelo entrenado con datos aumentados
 
 #rango de detecciones por score para que en cada modelo se pueda mostrar las detecciones por score
 detections_by_score_range = {
@@ -70,12 +67,17 @@ if uploaded_image:
         for percent_complete in range(100):
             time.sleep(0.01)
             progress_bar.progress(percent_complete + 1)        
-        # Procesar la imagen con el modelo YOLO      
-        model_proyecto_aug=YOLO("best_proyecto_conaumentacion.pt") # este es el modelo entrenado con datos aumentados
         original_image_v11=np.array(image)
         original_image_v11_aug=np.array(image)
-        #result_v11=model_proyecto.predict(image,max_det=1500)#se coloca el maximo de detecciones posibles         
-        result_v11_aug=model_proyecto_aug.predict(image,max_det=1500)#se coloca el maximo de detecciones posibles                   
+        # Cargue de modelo sin aumentacion se debe comentarear ya que streamlit cloud esta teniendo inconvenientes con la carga de modelos asi que solo se puede cargar un modelo :'(      
+        #model_proyecto=YOLO("best_model_sa_1.pt")  #este es el modelo entrenado sin datos aumentados. 
+        #result_v11=model_proyecto.predict(image,max_det=1500)#se coloca el maximo de detecciones posibles
+          
+        # Cargue de modelo con aumentacion
+        model_proyecto_aug=YOLO("best_proyecto_conaumentacion.pt") # este es el modelo entrenado con datos aumentados                       
+        result_v11_aug=model_proyecto_aug.predict(image,max_det=1500)#se coloca el maximo de detecciones posibles o de lo contrario maximo muestra 300 detecciones                   
+        ###Se comentarea la principal funcionalidad del modelo sin validaciones para que no genere inconvenientes en la aplicaion de streamlit cloud, sinembargo si corre en local
+        ### Este mensaje de error solo salio desde el 2 de Diciembre de 2024, ya que durante la sustentacion se corrio sin problemas en streamlit cloud
         #st.subheader('Conteo de clases detectadas con deteccion v11')        
         class_counts_v11 = {}
         #for detection in result_v11[0].boxes.data:
@@ -118,7 +120,7 @@ if uploaded_image:
         #                label = f'{object_name}: {score}'
         #                cv2.putText(original_image_v11, label, (x0, y0 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0,0), 1)                                               
         with col2:
-            st.image(original_image_v11, caption="Imagen con detecciones sin aumentacion", use_container_width=True)      
+            st.image(original_image_v11, caption="Imagen con detecciones sin aumentacion - modelo no disponible-", use_container_width=True)      
             # Convertir el diccionario de conteo a un DataFrame
             class_count_df_11 = pd.DataFrame(class_counts_v11.items(), columns=['Clase', 'Ocurrencias'])          
             df_score_range = pd.DataFrame(list(detections_by_score_range.items()), columns=['Score Range', 'Total Detections'])
